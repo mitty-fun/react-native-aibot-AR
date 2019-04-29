@@ -222,6 +222,16 @@ ViroMaterials.createMaterials({
 });
 
 ViroARTrackingTargets.createTargets({
+    '060_en': {
+        source: require('./js/res/markers/060_en.jpg'),
+        orientation: 'Up',
+        physicalWidth: 0.21
+    },
+    '061_en': {
+        source: require('./js/res/markers/061_en.jpg'),
+        orientation: 'Up',
+        physicalWidth: 0.21
+    },
     '060': {
         source: require('./js/res/markers/060.jpg'),
         orientation: 'Up',

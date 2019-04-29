@@ -1,8 +1,8 @@
 module.exports = [
     {
-        title: '測試',
+        title: 'Watch Out the Potholes!',
         image: require('../res/ui/lesson.jpg'),
-        sections: require('./test'),
+        sections: require('./L1_en'),
         style: {
             top: 50,
             left: 100,
@@ -13,7 +13,7 @@ module.exports = [
         image: require('../res/ui/lesson.jpg'),
         sections: require('./L1'),
         style: {
-            top: 350,
+            top: 300,
             left: 200,
         }
     },
@@ -22,8 +22,17 @@ module.exports = [
         image: require('../res/ui/lesson.jpg'),
         sections: require('./L2'),
         style: {
-            top: 650,
-            left: 50,
+            top: 550,
+            left: 100,
+        }
+    },
+    {
+        title: '測試',
+        image: require('../res/ui/lesson.jpg'),
+        sections: require('./test'),
+        style: {
+            top: 800,
+            left: 150,
         }
     },
 ]
