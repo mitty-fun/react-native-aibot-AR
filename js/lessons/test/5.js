@@ -27,10 +27,10 @@ export default class Scene extends Component {
                     <ViroAmbientLight color="#777777"/>
                     <Viro3DObject
                         type="VRX"
-                        source={require('../../res/models/flower/corn_flower.vrx')}
+                        source={require('../../res/models/flower/corn_flower_new.vrx')}
                         resources={[require('../../res/models/flower/corn_flower.png')]}
                         scale={[0.03, 0.03, 0.03]}
-                        position={[0.05, 0, 0]}
+                        position={[-0.05, 0, 0]}
                     />
                     <Viro3DObject
                         type="VRX"
@@ -44,7 +44,7 @@ export default class Scene extends Component {
                         source={require('../../res/models/albert/albertwalk.vrx')}
                         resources={[require('../../res/models/albert/albert.png')]}
                         scale={[0.03, 0.03, 0.03]}
-                        position={[-0.05, 0, 0]}
+                        position={[0.05, 0, 0]}
                     />
                 </ViroARImageMarker>
             </ViroARScene>

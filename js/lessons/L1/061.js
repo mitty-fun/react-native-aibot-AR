@@ -39,7 +39,7 @@ const playground = {
             type: 'item',
             name: 'flower',
             count: 1,
-            source: require('../../res/models/flower/corn_flower.vrx'),
+            source: require('../../res/models/flower/corn_flower_new.vrx'),
             resources: [require('../../res/models/flower/corn_flower.png')],
         },
         {
@@ -49,7 +49,7 @@ const playground = {
             type: 'item',
             name: 'flower',
             count: 1,
-            source: require('../../res/models/flower/corn_flower.vrx'),
+            source: require('../../res/models/flower/corn_flower_new.vrx'),
             resources: [require('../../res/models/flower/corn_flower.png')],
         },
         {
@@ -59,7 +59,7 @@ const playground = {
             type: 'item',
             name: 'flower',
             count: 1,
-            source: require('../../res/models/flower/corn_flower.vrx'),
+            source: require('../../res/models/flower/corn_flower_new.vrx'),
             resources: [require('../../res/models/flower/corn_flower.png')],
         },
         {
@@ -69,7 +69,7 @@ const playground = {
             type: 'item',
             name: 'flower',
             count: 1,
-            source: require('../../res/models/flower/corn_flower.vrx'),
+            source: require('../../res/models/flower/corn_flower_new.vrx'),
             resources: [require('../../res/models/flower/corn_flower.png')],
         },
         {
@@ -79,7 +79,7 @@ const playground = {
             type: 'item',
             name: 'flower',
             count: 1,
-            source: require('../../res/models/flower/corn_flower.vrx'),
+            source: require('../../res/models/flower/corn_flower_new.vrx'),
             resources: [require('../../res/models/flower/corn_flower.png')],
         },
         {
