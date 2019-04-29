@@ -86,7 +86,6 @@ class Grid extends Component {
 
     reset = () => {
         this.setState({ key: Math.random() });
-        // this.refs.player.closeDialogue();
     }
 
     _checker = (execDone, execSuccess) => {

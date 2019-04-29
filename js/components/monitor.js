@@ -53,7 +53,7 @@ export default class Monitor extends Component {
     }
 
     _runScript = () => {
-        this.setState({ index: 0, running: true }, () => {
+        this.setState({ focusOn: undefined, index: 0, running: true }, () => {
             this.props.reset();
             setTimeout(this._executeOneCommand, 100);
         });
@@ -87,14 +87,17 @@ export default class Monitor extends Component {
     }
 
     _execFail = () => {
+        this.setState({ running: false });
         Alert.alert('execFail');
     }
 
     _execSuccess = () => {
+        this.setState({ running: false });
         Alert.alert('success!');
     }
 
     _focusOn = (index) => {
+        if (this.state.running) return;
         if (this.state.focusOn === index) this._changeCommand(index);
         else this.setState({focusOn: index});
     }
@@ -187,7 +190,12 @@ export default class Monitor extends Component {
 class Command extends Component {
     constructor(props) {
         super(props);
-        this.state = { pause: true };
+        this.state = {
+            cubeALoaded: false,
+            cubeBLoaded: false,
+            symbolLoaded: false,
+            pause: true,
+        };
     }
     onClick = () => {
         this.setState({ pause: false });
@@ -212,31 +220,34 @@ class Command extends Component {
                 position={[this.props.posX, 0, this.props.posZ]}
                 opacity={this.props.focusOn ? 1 : 0.5}
                 scale={[0, 0, 0]}
-                animation={{ name: 'obj_pop', run: true, delay: 1000 }}
+                animation={{ name: 'obj_pop', run: this.state.symbolLoaded && this.state.cubeALoaded && this.state.cubeBLoaded }}
                 onClick={this.onClick}>
                 <Viro3DObject
                     type='VRX'
-                    scale={[0.014,0.014,0.014]}
+                    scale={[0.012,0.012,0.012]}
                     source={require('../res/models/commands/sign_cube_normal.vrx')}
                     resources={[require('../res/models/commands/sign.png')]}
+                    onLoadEnd={()=>{this.setState({cubeALoaded: true})}}
                     visible={!this.props.active}/>
                 <Viro3DObject
                     type='VRX'
-                    scale={[0.014,0.014,0.014]}
+                    scale={[0.012,0.012,0.012]}
                     source={require('../res/models/commands/sign_cube_shine.vrx')}
                     resources={[require('../res/models/commands/sign2.png')]}
+                    onLoadEnd={()=>{this.setState({cubeBLoaded: true})}}
                     visible={this.props.active}/>
                 {
                     this.props.color ? (
                         <ViroBox
-                            scale={[0.014,0.014,0.014]}
+                            scale={[0.012,0.012,0.012]}
                             position={[0, 0.005, 0]}
                             materials={[this.props.color]}/>
                     ) : (
                         <Viro3DObject
                             type='VRX'
-                            scale={[0.014,0.014,0.014]}
+                            scale={[0.012,0.012,0.012]}
                             source={source}
+                            onLoadEnd={()=>{this.setState({symbolLoaded: true})}}
                             resources={[require('../res/models/commands/sign.png')]}/>
                     )
                 }
