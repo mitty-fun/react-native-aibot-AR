@@ -4,10 +4,11 @@ import {
     ViroARImageMarker,
     ViroSound,
     Viro3DObject,
-    ViroSpotLight,
-    ViroAmbientLight,
     ViroMaterials,
+    ViroSpinner,
 } from 'react-viro';
+
+import Light from './light';
 
 export default class Screne extends Component {
     constructor (props) {
@@ -15,6 +16,7 @@ export default class Screne extends Component {
         this.state = {
             objectLoaded: false,
             anchorFound: false,
+            currentAnimation: 'Take 001',
         }
     }
     _onAnchorFound = () => {
@@ -26,42 +28,46 @@ export default class Screne extends Component {
     }
 
     _onClick = () => {
-        this.setState({ anchorFound: !this.state.anchorFound });
+        this.setState({ currentAnimation: undefined }, ()=>{
+            this.setState({currentAnimation: 'Take 001'});
+        });
     }
 
     render() {
         return (
             <ViroARScene>
                 <ViroARImageMarker target={this.props.target} onAnchorFound={this._onAnchorFound}>
-                    <ViroSpotLight
-                        innerAngle={5}
-                        outerAngle={25}
-                        direction={[0, -1, 0]}
-                        position={[0, 5, 0]}
-                        color="#ffffff"
-                        castsShadow={true}
-                        shadowMapSize={2048}
-                        shadowNearZ={2}
-                        shadowFarZ={5}
-                        shadowOpacity={.7} />
-                    <ViroAmbientLight color="#777777" />
+
+                    { !this.state.objectLoaded && (
+                        <ViroSpinner
+                            rotation={[-90, 0, 0]}
+                            scale={[0.1, 0.1, 0.1]}
+                            materials={['green']}/>
+                    )}
+                    {this.props.voice && 
+                        <ViroSound
+                            source={this.props.voice}
+                            paused={!(this.state.objectLoaded && this.state.anchorFound)}/>
+                    }
+                    {this.props.bgm && 
+                        <ViroSound
+                            source={this.props.bgm}
+                            paused={false}
+                            loop={true}/>
+                    }
+                    
+                    <Light/>
                     <Viro3DObject
                         {...this.props.object}
                         type="VRX"
                         onLoadEnd={this._onLoadEnd}
                         onClick={this._onClick}
                         animation={{
-                            name:'Take 001',
-                            loop: true,
+                            name: this.state.currentAnimation,
                             run: this.state.objectLoaded && this.state.anchorFound,
                         }}
                     />
-                    {this.props.voice && 
-                        <ViroSound source={this.props.voice} paused={!(this.state.objectLoaded && this.state.anchorFound)}/>
-                    }
-                    {this.props.bgm && 
-                        <ViroSound source={this.props.bgm} paused={false}/>
-                    }
+                    
                 </ViroARImageMarker>
             </ViroARScene>
         )

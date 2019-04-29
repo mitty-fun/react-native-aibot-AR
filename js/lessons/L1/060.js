@@ -21,7 +21,7 @@ export default class Scene extends Component {
             <Template
                 object={object}
                 target='060'
-                bgm={require('../../res/sounds/060.m4a')}
+                voice={require('../../res/voice/060.mp3')}
             />
         )
     }
