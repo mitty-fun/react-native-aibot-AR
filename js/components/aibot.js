@@ -52,7 +52,7 @@ export default class AIbot extends Component {
                 <Viro3DObject
                     onLoadEnd={this.props.onLoadEnd}
                     type="VRX"
-                    source={require('../res/models/albert/albertstop.vrx')}
+                    source={require('../res/models/albert/albert_stop.vrx')}
                     resources={[require('../res/models/albert/albert.png')]}
                     animation={{name:'Take 001',
                                 run:true,
@@ -61,7 +61,7 @@ export default class AIbot extends Component {
                 />
                 <Viro3DObject
                     type="VRX"
-                    source={require('../res/models/albert/albertwalk.vrx')}
+                    source={require('../res/models/albert/albert_walk.vrx')}
                     resources={[require('../res/models/albert/albert.png')]}
                     animation={{name:'Take 001',
                                 run:true,

@@ -41,7 +41,7 @@ export default class Scene extends Component {
                     />
                     <Viro3DObject
                         type="VRX"
-                        source={require('../../res/models/albert/albertwalk.vrx')}
+                        source={require('../../res/models/albert/albert_walk.vrx')}
                         resources={[require('../../res/models/albert/albert.png')]}
                         scale={[0.03, 0.03, 0.03]}
                         position={[0.05, 0, 0]}
