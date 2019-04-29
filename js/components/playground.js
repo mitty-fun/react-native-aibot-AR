@@ -6,6 +6,7 @@ import {
     Viro3DObject,
     ViroSpotLight,
     ViroAmbientLight,
+    ViroAnimations,
 } from 'react-viro';
 
 import AIbot from './aibot';
@@ -28,7 +29,11 @@ export default class Playground extends Component {
     render() {
         return (
             <ViroNode key={this.state.key}>
-                <Grid {...this.props} ref='grid'/>
+                <Grid
+                    onLoadEnd={this.props.onLoadEnd}
+                    {...this.props} 
+                    ref='grid'
+                />
             </ViroNode>
         )
     }
@@ -38,18 +43,34 @@ class Grid extends Component {
     constructor(props) {
         super(props);
         let grid = Array(props.col).fill('').map(()=>[]);
-        this.props.objects.forEach((obj) => {
-            grid[obj.posX][obj.posZ] = JSON.parse(JSON.stringify(obj));
-            grid[obj.posX][obj.posZ].key = Math.random();
-        });
 
         this.state = {
             player: JSON.parse(JSON.stringify(this.props.player)),
             grid: grid,
             backpack: [],
+            stack: JSON.parse(JSON.stringify(this.props.objects)),
+            firstLoaded: false,
         }
-
         this.state.player.key = Math.random();
+    }
+
+    _initOneObject = () => {
+        let arr = this.state.stack;
+        if (arr.length <= 0) {
+            if (this.state.firstLoaded == false) {
+                this.setState({firstLoaded: true});
+                this.props.onLoadEnd();
+            }
+            return;
+        }
+        let grid = this.state.grid;
+        let obj = arr.shift();
+        grid[obj.posX][obj.posZ] = obj;
+        grid[obj.posX][obj.posZ].key = Math.random();
+        this.setState({grid: this.state.grid});
+        if (obj.source == undefined) {
+            this._initOneObject();
+        }
     }
 
     execute = (command, execDone, execFail, execSuccess) => {
@@ -163,12 +184,17 @@ class Grid extends Component {
                         obj.source ? (
                             <Viro3DObject
                                 type="VRX"
+                                key={obj.key}
                                 position={[x, 0, z]}
                                 rotation={[0, obj.rotY, 0]}
                                 source={obj.source}
+                                onLoadEnd={this._initOneObject}
+                                scale={[0, 0, 0]}
+                                animation={{ name: 'obj_pop', run: true, delay: 1000 }}
                                 resources={obj.resources}/>
                         ) : (
                             <ViroBox 
+                                key={obj.key}
                                 position={[x, 0, z]}
                                 rotation={[0, obj.rotY, 0]}
                                 materials={[obj.color]}/>   
@@ -195,9 +221,32 @@ class Grid extends Component {
                 <ViroAmbientLight color="#777777" />
                 <AIbot
                     ref="player"
+                    onLoadEnd={this._initOneObject}
                     {...this.state.player}/>
                 {objects}
             </ViroNode>
         )
     }
 }
+
+ViroAnimations.registerAnimations({
+    obj_popup: {
+        properties: {
+            scaleX: 1.5,
+            scaleY: 1.5,
+            scaleZ: 1.5,
+        },
+        duration: 300,
+        easing: 'easeineaseout'
+    },
+    obj_popdown: {
+        properties: {
+            scaleX: 1,
+            scaleY: 1,
+            scaleZ: 1,
+        },
+        duration: 200,
+        easing: 'easeineaseout'
+    },
+    obj_pop: [['obj_popup', 'obj_popdown']]
+});

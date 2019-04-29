@@ -26,7 +26,7 @@ export default class Monitor extends Component {
             this.state.commands.push(cmd);
             this.setState({commands: this.state.commands});
             this.initOneCommandFromStack();
-        }, 130);
+        }, 300);
     }
 
     // 將指令字串轉化成指令物件並賦予唯一key
@@ -129,7 +129,7 @@ export default class Monitor extends Component {
         let x = index % 7;
         let z = (index - x) / 7;
         let active = this.state.index === index;
-        let focusOn = this.state.focusOn === index;
+        let focusOn = this.state.focusOn === index || this.state.focusOn == undefined;
         return (
             <Command
                 key={command.key}
@@ -165,17 +165,19 @@ export default class Monitor extends Component {
                 {this.state.commands.map((cmd, idx) => this._renderCommand(cmd, idx))}
                 {this._renderAppendButton()}
                 {this.state.running ? (
-                    <Command onClick={this._pause} symbol='S' posX={-0.02} posZ={0} active={false} />
+                    <Command onClick={this._pause} symbol='S' posX={-0.02} posZ={0} active={false} focusOn={true}/>
                 ) : (
-                    <Command onClick={this._runScript} symbol='P' posX={-0.02} posZ={0} active={false} />
+                    <Command onClick={this._runScript} symbol='P' posX={-0.02} posZ={0} active={false} focusOn={true}/>
                 )}
                 <Command
                     posX={-0.02} posZ={0.028} 
                     symbol='A' active={false}
+                    focusOn={true}
                     onClick={() => this._appendCommand(this.state.focusOn)}/>
                 <Command
                     posX={-0.02} posZ={0.056}
                     symbol='D' active={false}
+                    focusOn={true}
                     onClick={this._removeCommand} />
             </ViroNode>
         )
@@ -208,27 +210,32 @@ class Command extends Component {
         return (
             <ViroNode
                 position={[this.props.posX, 0, this.props.posZ]}
-                scale={this.props.focusOn ? [0.025, 0.025, 0.025] : [0.014, 0.014, 0.014]}
-                animation={{ name:"tapAnimation", run: true }}
+                opacity={this.props.focusOn ? 1 : 0.5}
+                scale={[0, 0, 0]}
+                animation={{ name: 'obj_pop', run: true, delay: 1000 }}
                 onClick={this.onClick}>
                 <Viro3DObject
-                    type="VRX"
+                    type='VRX'
+                    scale={[0.014,0.014,0.014]}
                     source={require('../res/models/commands/sign_cube_normal.vrx')}
                     resources={[require('../res/models/commands/sign.png')]}
                     visible={!this.props.active}/>
                 <Viro3DObject
-                    type="VRX"
+                    type='VRX'
+                    scale={[0.014,0.014,0.014]}
                     source={require('../res/models/commands/sign_cube_shine.vrx')}
                     resources={[require('../res/models/commands/sign2.png')]}
                     visible={this.props.active}/>
                 {
                     this.props.color ? (
                         <ViroBox
+                            scale={[0.014,0.014,0.014]}
                             position={[0, 0.005, 0]}
                             materials={[this.props.color]}/>
                     ) : (
                         <Viro3DObject
-                            type="VRX"
+                            type='VRX'
+                            scale={[0.014,0.014,0.014]}
                             source={source}
                             resources={[require('../res/models/commands/sign.png')]}/>
                     )
@@ -243,11 +250,3 @@ class Command extends Component {
         )
     }
 }
-
-ViroAnimations.registerAnimations({
-    scaleSphereUp:{properties:{scaleX:0.025, scaleY:0.025, scaleZ:0.025,},
-                    duration: 50, easing: "easeineaseout"},
-    scaleSphereDown:{properties:{scaleX:0.014, scaleY:0.014, scaleZ:0.014,},
-                    duration: 50, easing: "easeineaseout"},
-    tapAnimation:[["scaleSphereUp", "scaleSphereDown"],]
-});

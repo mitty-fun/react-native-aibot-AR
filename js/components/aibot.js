@@ -50,6 +50,7 @@ export default class AIbot extends Component {
                     interruptible: true
                 }}>
                 <Viro3DObject
+                    onLoadEnd={this.props.onLoadEnd}
                     type="VRX"
                     source={require('../res/models/albert/albertstop.vrx')}
                     resources={[require('../res/models/albert/albert.png')]}
