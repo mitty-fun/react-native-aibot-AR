@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Template from '../../components/story';
 
 const object = {
-    source: require('../../res/models/story/story.vrx'),
+    source: require('../../res/models/story/060.vrx'),
     resources: [
         require('../../res/models/story/albert.png'),
         require('../../res/models/story/corn_flower.png'),
