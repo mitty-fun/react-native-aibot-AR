@@ -40,6 +40,7 @@ export default class AIbot extends Component {
     render() {
         return (
             <ViroNode
+                highAccuracyEvents={true}
                 onClick={this._showHint}
                 position={[this.state.posX, 0, this.state.posZ]}
                 rotation={[0, this.state.rotY, 0]}

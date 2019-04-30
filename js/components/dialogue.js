@@ -46,6 +46,7 @@ export default class Dialogue extends Component {
                 onClick={this._next}
                 transformBehaviors='billboardY'>
                 <ViroImage
+                    highAccuracyEvents={true}
                     key={this.state.key}
                     height={5.8}
                     width={9.3}

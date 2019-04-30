@@ -204,54 +204,49 @@ class Command extends Component {
     }
     render() {
         let source = require('../res/models/commands/sign_minus.vrx');
-        if (this.props.symbol === 'R') source = require('../res/models/commands/sign_turnright.vrx');
-        if (this.props.symbol === 'L') source = require('../res/models/commands/sign_turnleft.vrx');
-        if (this.props.symbol === 'M') source = require('../res/models/commands/sign_right.vrx');
-        if (this.props.symbol === 'B') source = require('../res/models/commands/sign_left.vrx');
-        if (this.props.symbol === '+') source = require('../res/models/commands/sign_plus.vrx');
-        if (this.props.symbol === '-') source = require('../res/models/commands/sign_minus.vrx');
-        if (this.props.symbol === '-') source = require('../res/models/commands/sign_minus.vrx');
-        if (this.props.symbol === 'A') source = require('../res/models/commands/sign_add.vrx');
-        if (this.props.symbol === 'D') source = require('../res/models/commands/sign_delete.vrx');
-        if (this.props.symbol === 'P') source = require('../res/models/commands/sign_play.vrx');
-        if (this.props.symbol === 'S') source = require('../res/models/commands/sign_stop.vrx');
+        let symbol = this.props.symbol;
+        if (symbol === 'R') source = require('../res/models/commands/sign_turnright.vrx');
+        else if (symbol === 'L') source = require('../res/models/commands/sign_turnleft.vrx');
+        else if (symbol === 'M') source = require('../res/models/commands/sign_right.vrx');
+        else if (symbol === 'B') source = require('../res/models/commands/sign_left.vrx');
+        else if (symbol === '+') source = require('../res/models/commands/sign_plus.vrx');
+        else if (symbol === '-') source = require('../res/models/commands/sign_minus.vrx');
+        else if (symbol === '-') source = require('../res/models/commands/sign_minus.vrx');
+        else if (symbol === 'A') source = require('../res/models/commands/sign_add.vrx');
+        else if (symbol === 'D') source = require('../res/models/commands/sign_delete.vrx');
+        else if (symbol === 'P') source = require('../res/models/commands/sign_play.vrx');
+        else if (symbol === 'S') source = require('../res/models/commands/sign_stop.vrx');
 
         return (
             <ViroNode
                 position={[this.props.posX, 0, this.props.posZ]}
                 opacity={this.props.focusOn ? 1 : 0.5}
                 scale={[0, 0, 0]}
-                animation={{ name: 'obj_pop', run: this.state.symbolLoaded && this.state.cubeALoaded && this.state.cubeBLoaded }}
-                onClick={this.onClick}>
+                onClick={this.onClick}
+                animation={{ name: 'obj_pop', run: this.state.symbolLoaded && this.state.cubeALoaded && this.state.cubeBLoaded }}>
                 <Viro3DObject
                     type='VRX'
-                    scale={[0.012,0.012,0.012]}
+                    highAccuracyEvents={true}
+                    scale={[0.017, 0.017, 0.017]}
                     source={require('../res/models/commands/sign_cube_normal.vrx')}
                     resources={[require('../res/models/commands/sign.png')]}
                     onLoadEnd={()=>{this.setState({cubeALoaded: true})}}
                     visible={!this.props.active}/>
                 <Viro3DObject
                     type='VRX'
-                    scale={[0.012,0.012,0.012]}
+                    highAccuracyEvents={true}
+                    scale={[0.017, 0.017, 0.017]}
                     source={require('../res/models/commands/sign_cube_shine.vrx')}
                     resources={[require('../res/models/commands/sign2.png')]}
                     onLoadEnd={()=>{this.setState({cubeBLoaded: true})}}
                     visible={this.props.active}/>
-                {
-                    this.props.color ? (
-                        <ViroBox
-                            scale={[0.012,0.012,0.012]}
-                            position={[0, 0.005, 0]}
-                            materials={[this.props.color]}/>
-                    ) : (
-                        <Viro3DObject
-                            type='VRX'
-                            scale={[0.012,0.012,0.012]}
-                            source={source}
-                            onLoadEnd={()=>{this.setState({symbolLoaded: true})}}
-                            resources={[require('../res/models/commands/sign.png')]}/>
-                    )
-                }
+                <Viro3DObject
+                    type='VRX'
+                    highAccuracyEvents={true}
+                    scale={[0.017, 0.017, 0.017]}
+                    source={source}
+                    onLoadEnd={()=>{this.setState({symbolLoaded: true})}}
+                    resources={[require('../res/models/commands/sign.png')]}/>
                 <ViroSound
                     paused={this.state.pause}
                     muted={false}
