@@ -1,10 +1,10 @@
 module.exports = [
     {
-        page: '060',
+        page: 'p.060',
         scene: require('./060'),
     },
     {
-        page: '061',
+        page: 'p.061',
         scene: require('./061'),
     },
 ] 

@@ -83,8 +83,8 @@ export default class AIbot extends Component {
             return (
                 <View key={idx} style={{margin: 15}} style={{position: 'absolute', ...lesson.style}}>
                     <TouchableOpacity onPress={()=>{this._setLesson(idx)}}>
-                        <Image source={lesson.image} style={{borderRadius: 100}}/>
-                        <Text style={{textAlign: 'center', fontSize: 30, color: 'white'}}>{lesson.title}</Text>
+                        <Image source={lesson.image} style={{borderRadius: 95, width: 190, height: 190, marginBottom: 10, borderWidth: 5, borderColor: '#333'}}/>
+                        <Text style={{textAlign: 'center', fontSize: 16, color: 'white', fontWeight: 'bold'}}>{lesson.title}</Text>
                     </TouchableOpacity>
                 </View>
             )
@@ -95,7 +95,7 @@ export default class AIbot extends Component {
                     <Image source={require('./js/res/ui/back.png')}/>
                 </TouchableOpacity>
                 <ScrollView showsHorizontalScrollIndicator={false} style={{width: '100%'}}>
-                    <View style={{height: 1000, backgroundColor: 'rgba(0,0,0,.1)'}}>
+                    <View style={{height: 1200, backgroundColor: 'rgba(0,0,0,.1)'}}>
                         {lessons}
                     </View>
                 </ScrollView>
@@ -139,7 +139,7 @@ export default class AIbot extends Component {
                     onPress={this._nextSection}>
                     <Image source={require('./js/res/ui/back.png')}/>
                 </TouchableOpacity>
-                <Text>
+                <Text style={localStyles.sectionTitle}>
                     {section.page}
                 </Text>
             </View>
@@ -194,7 +194,7 @@ const localStyles = StyleSheet.create({
     nextSection: {
         position: 'absolute',
         top: 5,
-        left: 55,
+        right: 5,
     },
     sectionBox: {
         backgroundColor: 'gold',
@@ -202,15 +202,25 @@ const localStyles = StyleSheet.create({
         margin: 15,
         width: 150,
         height: 150,
+        borderRadius: 10,
+        borderWidth: 5,
+        borderColor: '#333'
     },
     UI: {
         position: 'absolute',
         top: 0,
         left: 0,
-        zIndex:1000,
+        zIndex: 1000,
         width: '100%',
-        height: '30%',
+        height: '10%',
     },
+    sectionTitle: {
+        color: '#fff',
+        fontSize: 20,
+        padding: 15,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    }
 })
 
 ViroMaterials.createMaterials({

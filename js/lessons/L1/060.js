@@ -12,7 +12,9 @@ const object = {
         require('../../res/models/story/tire.png'),
         require('../../res/models/story/ufo.png'),
     ],
-    scale: [0.03, 0.03, 0.03],
+    position: [0, 0, 0.18],
+    scale: [0.025, 0.025, 0.025],
+    rotation: [0, 180, 0],
 }
 
 export default class Scene extends Component {

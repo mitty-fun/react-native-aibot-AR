@@ -153,6 +153,7 @@ export default class Monitor extends Component {
             <Command
                 posX={x * 0.02} posZ={z * 0.028}
                 symbol='A' active={false}
+                focusOn={true}
                 onClick={()=>this._appendCommand(this.state.commands.length)}/>
         )
     }
