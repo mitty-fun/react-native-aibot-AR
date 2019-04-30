@@ -50,7 +50,7 @@ export default class AIbot extends Component {
     _renderAR = () => {
         let section = Data[this.state.lessonIndex].sections[this.state.sectionIndex];
         return (
-            <ViroARSceneNavigator {...sharedProps} key={this.state.ARkey}
+            <ViroARSceneNavigator {...sharedProps} key={this.state.ARkey} autofocus={true}
                 initialScene={{scene: section.scene}} />
         )
     }
